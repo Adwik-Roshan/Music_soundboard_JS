@@ -29,13 +29,36 @@ class Button {
     noStroke();
 
     fill(this.color);
-    rect((this.x-100), this.y, this.w, this.h);
+    rect(this.x - 100, this.y, this.w, this.h);
 
     fill(this.accent);
     ellipse(this.x, this.y, this.w, this.h);
 
     fill(this.color);
-    arc((this.x), this.y+60, this.w, this.h, TWO_PI, PI);
+    arc(this.x, this.y + 60, this.w, this.h, TWO_PI, PI);
+  }
+
+  clicked(px, py) {
+    let d = dist(px, py, this.x, this.y);
+
+    if (d < this.w / 2) {
+      this.y = this.y + 10;
+      this.sound.play();
+    }
+  }
+}
+function mousePressed() {
+  for (let i = 0; i < buttons_top.length; i++) {
+    buttons_top[i].clicked(mouseX, mouseY);
+    buttons_middle[i].clicked(mouseX, mouseY);
+    buttons_bottom[i].clicked(mouseX, mouseY);
+  }
+}
+function mouseReleased(){
+  for (let i = 0; i < buttons_top.length; i++){
+    buttons_top[i].y=height/4;
+    buttons_middle[i].y=height/2;
+    buttons_bottom[i].y = 3*height/4;
   }
 }
 
